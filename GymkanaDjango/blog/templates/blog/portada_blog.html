@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+        <th>
+    <h3>Listado de noticias más importantes</h3>
+
+    {% if object_list.new %}
+        {% for new in object_list.new %}
+
+                <a href="{{ a.get_absolute_url }}">
+                    <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                      <div class="card-header">{{ new.title }}</div>
+                      <div class="card-body">
+                        <h4 class="card-title">{{ new.subtitle }}</h4>
+                        <p class="card-text">Fecha de publicación: {{ new.publish_date }}</p>
+                      </div>
+                    </div>
+                </a>
+
+        {% endfor %}
+
+    {% else %}
+
+      <p>No hay elementos para mostrar.</p>
+
+    {% endif %}
+    </th>
+    <th>
+    <h3>Listado de eventos más importantes</h3>
+
+    {% if object_list.event %}
+        {% for event in object_list.event %}
+
+           <a href="{{ a.get_absolute_url }}">
+                    <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                      <div class="card-header">{{ event.title }}</div>
+                      <div class="card-body">
+                        <h4 class="card-title">{{ event.subtitle }}</h4>
+                        <p class="card-text">Fecha de comienzo: {{ event.start_date }}</p>
+                      </div>
+                    </div>
+                </a>
+
+        {% endfor %}
+
+    {% else %}
+
+      <p>No hay eventos para mostrar.</p>
+
+    {% endif %}
+    </th>
+    </tr>
+        </thead>
+    </table>
+
+{% endblock %}
+
+<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+  <div class="card-header">{{ new.title }}</div>
+  <div class="card-body">
+    <h4 class="card-title">{{ new.subtitle }}</h4>
+    <p class="card-text">Fecha de publicación: {{ new.publish_date }}</p>
+  </div>
+</div>
