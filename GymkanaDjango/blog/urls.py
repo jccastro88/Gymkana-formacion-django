@@ -1,11 +1,16 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
-from . import views
-from blog.views import PortadaList
+
+from blog.views import PortadaList, newsview
 
 urlpatterns = [
 
-    path('', PortadaList.as_view(), name='news_list'),
-    # path('new', NewList.as_view(), name='news_list'),
+    path('', PortadaList.as_view(), name='portada_List'),
+    path('v1/news/create', newsview, name='new_create'),
     # path('event', EventList.as_view(), name='events_list'),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

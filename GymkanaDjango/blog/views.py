@@ -1,8 +1,6 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
-
+from blog.forms import NewsForm
 from blog.models import New, Event
 
 
@@ -15,17 +13,14 @@ class PortadaList(ListView):
             'new': New.objects.order_by('publish_date').reverse()[:3],
         }
 
-"""
-class NewList(ListView):
-    model = New
-    template_name = 'portada_blog.html'
-    paginate_by = 3
-    # context_object_name = 'news_list'
 
+def newsview(request):
+    if request.method == 'POST':
+        form = NewsForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save()
+        return redirect('new_create')
+    else:
+        form = NewsForm()
+    return render(request, 'news_form.html', {'form': form})
 
-class EventList(ListView):
-    model = Event
-    template_name = 'portada_blog.html'
-    paginate_by = 3
-    context_object_name = 'events_list'
-"""

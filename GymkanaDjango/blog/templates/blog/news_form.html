@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<!--    {{ form.as_p }}-->
+    {% for field in form %}
+    <div class="form-group{% if field.errors %} {{ form.errorClass }}{% endif %}">
+        <label {% if field.field.required %}class="bold"{% endif %} for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+        {{ field }}
+
+        {% if form.errors %}
+            <ul class="errorlist">
+                {% for error in form.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}
+
+
