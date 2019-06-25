@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from blog.forms import NewsForm
 from blog.models import New, Event
 
@@ -13,6 +13,12 @@ class PortadaList(ListView):
             'new': New.objects.order_by('publish_date').reverse()[:3],
         }
 
+
+class NewsCreate(CreateView):
+    template_name = 'news_form.html'
+    form_class = NewsForm
+    queryset = New.objects.all()
+    success_url = '/v1/news/list'
 
 def newscreate(request):
     if request.method == 'POST':

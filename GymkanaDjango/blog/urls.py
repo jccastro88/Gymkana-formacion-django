@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from blog.views import PortadaList, newscreate, newslist, newsdetail, newsupdate, newsdelete
+from blog.views import PortadaList, newscreate, newslist, newsdetail, newsupdate, newsdelete, NewsCreate
 
 app_name = 'blog'
 
@@ -13,8 +13,10 @@ urlpatterns = [
     path('v1/news/list', newslist, name='new_list'),
     path('v1/news/<id>', newsdetail, name='new_detail'),
     path('v1/news/update/<id>', newsupdate, name='new_update'),
-    path('v1/news/delete/', newslist, name='new_list'),
+    path('v1/news/delete/', newslist, name='new_delete2'),
     path('v1/news/delete/<id>', newsdelete, name='new_delete'),
+    path('v2/news/create', NewsCreate.as_view(), name='new_create2'),
+    # path('v2/news/list', newslist, name='new_list2'),
 
 ]
 

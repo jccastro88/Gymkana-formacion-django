@@ -4,7 +4,6 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.translation import ugettext as _
 
-# Create your models here.
 from blog.validators import validate_file_size
 
 
