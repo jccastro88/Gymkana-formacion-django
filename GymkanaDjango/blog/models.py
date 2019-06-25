@@ -20,7 +20,7 @@ class BaseItems(models.Model):
 class New (BaseItems):
     publish_date = models.DateField(_('Fecha de publicación'), auto_now=True)
     image = models.ImageField(_('Imagen'), upload_to='media', default='media/djangoworld.png', null=True, blank=True,
-                              validators=[validate_file_size, FileExtensionValidator(['jpg', 'png'])])
+                              validators=[validate_file_size, FileExtensionValidator(['jpg', 'png']), ])
 
     class Meta:
         verbose_name = 'Noticia'

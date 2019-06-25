@@ -19,7 +19,7 @@ def newscreate(request):
         form = NewsForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save()
-        return redirect('new_create')
+        return redirect('blog:new_create')
     else:
         form = NewsForm()
     return render(request, 'news_form.html', {'form': form})
@@ -27,23 +27,26 @@ def newscreate(request):
 
 def newslist(request):
     news = New.objects.order_by('publish_date').all()
-    context = {'objects': news}
-    return render(request, 'lists.html', context)
+    return render(request, 'lists.html', {'objects': news})
 
 
 def newsdetail(request, id=None):
     news = New.objects.get(id=id)
-    context = {'object': news}
-    return render(request, 'detail.html', context)
+    return render(request, 'detail.html', {'object': news})
 
 
 def newsupdate(request, id=None):
     news = New.objects.get(id=id)
     form = NewsForm(request.POST or None, request.FILES or None, instance=news)
-    # import ipdb; ipdb.set_trace()
     if form.is_valid():
         form.save()
-    # return redirect('new_update')
     return render(request, 'news_form.html', {'news': news, 'form': form})
 
+
+def newsdelete(request, id):
+    news = New.objects.get(id=id)
+    if request.method == 'POST':
+        news.delete()
+        return redirect('blog:new_list')
+    return render(request, 'delete.html', {'object': news})
 
