@@ -24,3 +24,4 @@ class NewsForm(forms.ModelForm):
             'subtitle': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
+

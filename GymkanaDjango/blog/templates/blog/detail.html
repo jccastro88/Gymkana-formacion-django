@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="jumbotron" align="center">
+        <h1 class="display-4">Título: {{ object.title }}</h1>
+
+        <br>
+        <h1 class="display-5">Subtítulo: {{ object.subtitle }}</h1>
+
+        <p class="lead">Cuerpo: {{ object.body }}</p>
+
+        <p class="lead">Imagen:</p>
+
+        <img src="{{ object.image.url }}">
+
+        <p><a class="btn btn-info" href="{% url 'blog:new_list' %}">Volver a lista de noticias </a></p>
+    </div>
+{% endblock %}

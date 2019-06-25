@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from blog.forms import NewsForm
 from blog.models import New, Event
@@ -14,7 +14,7 @@ class PortadaList(ListView):
         }
 
 
-def newsview(request):
+def newscreate(request):
     if request.method == 'POST':
         form = NewsForm(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -23,4 +23,17 @@ def newsview(request):
     else:
         form = NewsForm()
     return render(request, 'news_form.html', {'form': form})
+
+
+def newslist(request):
+    news = New.objects.order_by('publish_date').all()
+    context = {'objects': news}
+    return render(request, 'lists.html', context)
+
+
+def newsdetail(request, id=None):
+    news = New.objects.get(id=id)
+    context = {'object': news}
+    return render(request, 'detail.html', context)
+
 
