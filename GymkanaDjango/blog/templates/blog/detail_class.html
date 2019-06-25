@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="jumbotron" align="center">
+        <h1 class="display-4">Título: {{ object.title }}</h1>
+
+        <br>
+        <h1 class="display-5">Subtítulo: {{ object.subtitle }}</h1>
+
+        <p class="lead" style="width:60%;">Cuerpo: {{ object.body }}</p>
+
+        <p class="lead">Imagen:</p>
+
+        {% if object.image.url != None %}
+            <img src="{{ object.image.url }}" style="width:60%;">
+        {% else %}
+            <p>No hay imagen en esta noticia</p>
+        {% endif %}
+
+        <br><br><p>
+            <a class="btn btn-info" href="{% url 'blog:new_update' object.id %}">Actualizar </a>
+            <a class="btn btn-info" href="{% url 'blog:new_delete' object.id %}">Eliminar</a>
+            <a class="btn btn-info" href="{% url 'blog:new_list2' %}">Volver a lista de noticias </a>
+        </p>
+    </div>
+{% endblock %}

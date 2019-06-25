@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div align="center">
+
+
+    {% if objects %}
+        <h3 class="display-3">Listado de noticias</h3>
+        {% for object in objects %}
+
+            <a href="{% url 'blog:new_detail2' object.id %}">
+            <div class="card text-white bg-dark mb-3" style="max-width: 60rem;">
+                <div class="card-header">{{ object.title }}</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ object.subtitle }}</h4>
+                    <p class="card-text">Fecha de publicación: {{ object.publish_date }}</p>
+                </div>
+             </div>
+            </a>
+        {% endfor %}
+
+    {% else %}
+
+        <p>No hay elementos para mostrar.</p>
+
+    {% endif %}
+</div>
+
+{% endblock %}

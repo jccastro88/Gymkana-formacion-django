@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView, TemplateView, DetailView
 from blog.forms import NewsForm
 from blog.models import New, Event
 
@@ -18,7 +18,22 @@ class NewsCreate(CreateView):
     template_name = 'news_form.html'
     form_class = NewsForm
     queryset = New.objects.all()
-    success_url = '/v1/news/list'
+    success_url = '/v2/news/list'
+
+
+class NewsList(TemplateView):
+    template_name = 'list_class.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['objects'] = New.objects.order_by('publish_date').all()
+        return context
+
+
+class NewsDetail(DetailView):
+    model = New
+    template_name = 'detail_class.html'
+
 
 def newscreate(request):
     if request.method == 'POST':
