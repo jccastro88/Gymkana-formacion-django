@@ -37,3 +37,13 @@ def newsdetail(request, id=None):
     return render(request, 'detail.html', context)
 
 
+def newsupdate(request, id=None):
+    news = New.objects.get(id=id)
+    form = NewsForm(request.POST or None, request.FILES or None, instance=news)
+    # import ipdb; ipdb.set_trace()
+    if form.is_valid():
+        form.save()
+    # return redirect('new_update')
+    return render(request, 'news_form.html', {'news': news, 'form': form})
+
+

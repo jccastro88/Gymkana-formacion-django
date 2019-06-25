@@ -11,15 +11,16 @@
         {{ field }}
 
         {% if form.errors %}
-            <ul class="errorlist">
+            <ul>
                 {% for error in form.errors %}
-                    <li>{{ error }}</li>
+                    <li class="alert alert-dismissible alert-primary">{{ error }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
     </div>
     {% endfor %}
-    <button type="submit">Guardar</button>
+    <button class="btn btn-info" type="submit">Guardar</button>
+    <a class="btn btn-info" href="{% url 'blog:new_list' %}">Volver</a>
 </form>
 {% endblock %}
 

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from blog.views import PortadaList, newscreate, newslist, newsdetail
+from blog.views import PortadaList, newscreate, newslist, newsdetail, newsupdate
 
 app_name = 'blog'
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('v1/news/create', newscreate, name='new_create'),
     path('v1/news/list', newslist, name='new_list'),
     path('v1/news/<id>', newsdetail, name='new_detail'),
+    path('v1/news/update/<id>', newsupdate, name='new_update'),
 
     # path('v1/news/(?P<id>\d+)/$', newslist, name='new_detail'),
 
