@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, TemplateView, DetailView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, TemplateView, DetailView, UpdateView
 from blog.forms import NewsForm
 from blog.models import New, Event
 
@@ -34,13 +35,30 @@ class NewsDetail(DetailView):
     model = New
     template_name = 'detail_class.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['field'] = New.objects.order_by('publish_date').all()
+        return context
+
+
+class NewsUpdate(UpdateView):
+    model = New
+    template_name = 'news_form.html'
+    queryset = New.objects.all()
+    fields = ['title', 'subtitle', 'body', 'image']
+    # success_url = reverse_lazy('blog:new_detail2')
+
+    def get_object(self):
+        id = self.kwargs.get('id')
+        return get_object_or_404(New, id=id)
+
 
 def newscreate(request):
     if request.method == 'POST':
         form = NewsForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save()
-        return redirect('blog:new_create')
+        return redirect('blog:new_list')
     else:
         form = NewsForm()
     return render(request, 'news_form.html', {'form': form})
